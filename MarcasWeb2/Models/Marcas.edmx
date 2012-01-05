@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MarcasModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MarcasModelStoreContainer">
+          <EntitySet Name="TB_CLIENTES" EntityType="MarcasModel.Store.TB_CLIENTES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TB_PAIS" EntityType="MarcasModel.Store.TB_PAIS" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="IDPAIS_1" Association="MarcasModel.Store.IDPAIS_1">
+            <End Role="TB_PAIS" EntitySet="TB_PAIS" />
+            <End Role="TB_CLIENTES" EntitySet="TB_CLIENTES" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TB_CLIENTES">
+          <Key>
+            <PropertyRef Name="INT_IDCLIENTE" />
+          </Key>
+          <Property Name="INT_IDCLIENTE" Type="int" Nullable="false" />
+          <Property Name="STR_NOMBRE" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="STR_RUT" Type="varchar" MaxLength="20" />
+          <Property Name="STR_TRATAMIENTO" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="STR_DIR_COR" Type="varchar" MaxLength="100" />
+          <Property Name="STR_COM_COR" Type="varchar" MaxLength="100" />
+          <Property Name="STR_CIU_COR" Type="varchar" MaxLength="100" />
+          <Property Name="STR_COD_POSTAL_COR" Type="varchar" MaxLength="20" />
+          <Property Name="STR_EMAIL_CLIENTE" Type="varchar" MaxLength="100" />
+          <Property Name="STR_FONO_CLIENTE" Type="varchar" MaxLength="20" />
+          <Property Name="STR_FAX_CLIENTE" Type="varchar" MaxLength="20" />
+          <Property Name="STR_SITIO_WEB" Type="varchar" MaxLength="50" />
+          <Property Name="STR_DIRIGIDO" Type="varchar" MaxLength="200" />
+          <Property Name="INT_ESINGLES" Type="bit" Nullable="false" />
+          <Property Name="INT_CARTAS_SI" Type="bit" Nullable="false" />
+          <Property Name="INT_EMAIL_SI" Type="bit" Nullable="false" />
+          <Property Name="INT_FAX_SI" Type="bit" Nullable="false" />
+          <Property Name="INT_SIACTIVO" Type="int" Nullable="false" />
+          <Property Name="STR_IDPAIS" Type="char" MaxLength="2" />
+          <Property Name="INT_IDABOGADO" Type="int" />
+          <Property Name="INT_ES_AGENTE" Type="bit" Nullable="false" />
+          <Property Name="STR_CLIENTE_FAMILIA" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TB_PAIS">
+          <Key>
+            <PropertyRef Name="STR_IDPAIS" />
+          </Key>
+          <Property Name="STR_IDPAIS" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="STR_NOMBRE_PAIS" Type="varchar" Nullable="false" MaxLength="80" />
+          <Property Name="STR_NOMESPANOL" Type="varchar" MaxLength="80" />
+          <Property Name="STR_ISO3" Type="varchar" MaxLength="3" />
+          <Property Name="STR_CODIGO_ANTERIOR" Type="varchar" MaxLength="3" />
+          <Property Name="INT_NUMERICO_ISO" Type="int" />
+        </EntityType>
+        <Association Name="IDPAIS_1">
+          <End Role="TB_PAIS" Type="MarcasModel.Store.TB_PAIS" Multiplicity="0..1" />
+          <End Role="TB_CLIENTES" Type="MarcasModel.Store.TB_CLIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_PAIS">
+              <PropertyRef Name="STR_IDPAIS" />
+            </Principal>
+            <Dependent Role="TB_CLIENTES">
+              <PropertyRef Name="STR_IDPAIS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+      warning 6013: The table/view 'HCPI_DESA.dbo.REL_ESTADO_SUBESTADO_CAT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="REL_ESTADO_SUBESTADO_CAT">
+        <Property Name="STR_CODIGOESTADOADMIN" Type="char" MaxLength="1" />
+        <Property Name="ID_TIPO_SUBESTADO" Type="int" />
+        <Property Name="INT_ID_CATEGORIA" Type="int" />
+      </EntityType>-->
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MarcasModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MarcasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TB_CLIENTES" EntityType="MarcasModel.Cliente" />
+          <EntitySet Name="TB_PAIS" EntityType="MarcasModel.Pais" />
+          <AssociationSet Name="IDPAIS_1" Association="MarcasModel.IDPAIS_1">
+            <End Role="TB_PAIS" EntitySet="TB_PAIS" />
+            <End Role="TB_CLIENTES" EntitySet="TB_CLIENTES" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="Rut" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Tratamiento" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Direccion" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Comuna" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Ciudad" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Telefono" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Fax" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="SitioWeb" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Dirigido" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="EsIngles" Type="Boolean" Nullable="false" />
+          <Property Name="EsCarta" Type="Boolean" Nullable="false" />
+          <Property Name="EsEmail" Type="Boolean" Nullable="false" />
+          <Property Name="EsFaxi" Type="Boolean" Nullable="false" />
+          <Property Name="Activo" Type="Int32" Nullable="false" />
+          <Property Name="IdPais" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="IdAbogado" Type="Int32" />
+          <Property Name="EsAgente" Type="Boolean" Nullable="false" />
+          <Property Name="ClienteFamilia" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="TB_PAIS" Relationship="MarcasModel.IDPAIS_1" FromRole="TB_CLIENTES" ToRole="TB_PAIS" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Name="NombreEspañol" Type="String" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Name="Iso3" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="CodigoAnterior" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="NumericoIso" Type="Int32" />
+          <NavigationProperty Name="TB_CLIENTES" Relationship="MarcasModel.IDPAIS_1" FromRole="TB_PAIS" ToRole="TB_CLIENTES" />
+        </EntityType>
+        <Association Name="IDPAIS_1">
+          <End Role="TB_PAIS" Type="MarcasModel.Pais" Multiplicity="0..1" />
+          <End Role="TB_CLIENTES" Type="MarcasModel.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_PAIS">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="TB_CLIENTES">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MarcasModelStoreContainer" CdmEntityContainer="MarcasEntities">
+          <EntitySetMapping Name="TB_CLIENTES"><EntityTypeMapping TypeName="MarcasModel.Cliente"><MappingFragment StoreEntitySet="TB_CLIENTES">
+            <ScalarProperty Name="IdCliente" ColumnName="INT_IDCLIENTE" />
+            <ScalarProperty Name="Nombre" ColumnName="STR_NOMBRE" />
+            <ScalarProperty Name="Rut" ColumnName="STR_RUT" />
+            <ScalarProperty Name="Tratamiento" ColumnName="STR_TRATAMIENTO" />
+            <ScalarProperty Name="Direccion" ColumnName="STR_DIR_COR" />
+            <ScalarProperty Name="Comuna" ColumnName="STR_COM_COR" />
+            <ScalarProperty Name="Ciudad" ColumnName="STR_CIU_COR" />
+            <ScalarProperty Name="CodigoPostal" ColumnName="STR_COD_POSTAL_COR" />
+            <ScalarProperty Name="Email" ColumnName="STR_EMAIL_CLIENTE" />
+            <ScalarProperty Name="Telefono" ColumnName="STR_FONO_CLIENTE" />
+            <ScalarProperty Name="Fax" ColumnName="STR_FAX_CLIENTE" />
+            <ScalarProperty Name="SitioWeb" ColumnName="STR_SITIO_WEB" />
+            <ScalarProperty Name="Dirigido" ColumnName="STR_DIRIGIDO" />
+            <ScalarProperty Name="EsIngles" ColumnName="INT_ESINGLES" />
+            <ScalarProperty Name="EsCarta" ColumnName="INT_CARTAS_SI" />
+            <ScalarProperty Name="EsEmail" ColumnName="INT_EMAIL_SI" />
+            <ScalarProperty Name="EsFaxi" ColumnName="INT_FAX_SI" />
+            <ScalarProperty Name="Activo" ColumnName="INT_SIACTIVO" />
+            <ScalarProperty Name="IdPais" ColumnName="STR_IDPAIS" />
+            <ScalarProperty Name="IdAbogado" ColumnName="INT_IDABOGADO" />
+            <ScalarProperty Name="EsAgente" ColumnName="INT_ES_AGENTE" />
+            <ScalarProperty Name="ClienteFamilia" ColumnName="STR_CLIENTE_FAMILIA" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TB_PAIS"><EntityTypeMapping TypeName="MarcasModel.Pais"><MappingFragment StoreEntitySet="TB_PAIS">
+            <ScalarProperty Name="IdPais" ColumnName="STR_IDPAIS" />
+            <ScalarProperty Name="Nombre" ColumnName="STR_NOMBRE_PAIS" />
+            <ScalarProperty Name="NombreEspañol" ColumnName="STR_NOMESPANOL" />
+            <ScalarProperty Name="Iso3" ColumnName="STR_ISO3" />
+            <ScalarProperty Name="CodigoAnterior" ColumnName="STR_CODIGO_ANTERIOR" />
+            <ScalarProperty Name="NumericoIso" ColumnName="INT_NUMERICO_ISO" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Marcas">
+        <EntityTypeShape EntityType="MarcasModel.Cliente" Width="1.5" PointX="3.75" PointY="1.125" Height="5.0814827473958335" IsExpanded="true" />
+        <EntityTypeShape EntityType="MarcasModel.Pais" Width="1.5" PointX="0.75" PointY="2.5" Height="2.2263395182291661" IsExpanded="true" />
+        <AssociationConnector Association="MarcasModel.IDPAIS_1" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="3.6131697591145828" />
+          <ConnectorPoint PointX="3.75" PointY="3.6131697591145828" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

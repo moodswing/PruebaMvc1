@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MarcasWeb2.Models.Cliente>
+@{
+    ViewBag.Title = "Index";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#view1").click(function() {
+            $("#ajaxpanel").load("@(Url.Action("View1"))");
+        });
+        $("#view2").click(function() {
+            $("#ajaxpanel").load("@(Url.Action("View2"))");
+        });
+    });
+</script>
+
+<table>
+    <thead class="thead1">
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th>
+                País
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Select((x, i) => new { Data = x, Index = i }))
+        {
+            <tr class="@(item.Index % 2 != 1 ? "odd" : "")">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data.TB_PAIS.NombreEspañol)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Data.IdCliente }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Data.IdCliente }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Data.IdCliente })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<input type="button" id="view1" value="Vista 1" />
+<input type="button" id="view2" value="Vista 2" />
+<div id="ajaxpanel" style="border-color: red; border-style: solid; border-width: thin"></div>
