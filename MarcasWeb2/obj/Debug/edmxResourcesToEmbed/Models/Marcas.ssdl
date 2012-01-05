@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MarcasModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="MarcasModelStoreContainer">
+    <EntitySet Name="TB_CLIENTES" EntityType="MarcasModel.Store.TB_CLIENTES" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TB_PAIS" EntityType="MarcasModel.Store.TB_PAIS" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="IDPAIS_1" Association="MarcasModel.Store.IDPAIS_1">
+      <End Role="TB_PAIS" EntitySet="TB_PAIS" />
+      <End Role="TB_CLIENTES" EntitySet="TB_CLIENTES" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TB_CLIENTES">
+    <Key>
+      <PropertyRef Name="INT_IDCLIENTE" />
+    </Key>
+    <Property Name="INT_IDCLIENTE" Type="int" Nullable="false" />
+    <Property Name="STR_NOMBRE" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="STR_RUT" Type="varchar" MaxLength="20" />
+    <Property Name="STR_TRATAMIENTO" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="STR_DIR_COR" Type="varchar" MaxLength="100" />
+    <Property Name="STR_COM_COR" Type="varchar" MaxLength="100" />
+    <Property Name="STR_CIU_COR" Type="varchar" MaxLength="100" />
+    <Property Name="STR_COD_POSTAL_COR" Type="varchar" MaxLength="20" />
+    <Property Name="STR_EMAIL_CLIENTE" Type="varchar" MaxLength="100" />
+    <Property Name="STR_FONO_CLIENTE" Type="varchar" MaxLength="20" />
+    <Property Name="STR_FAX_CLIENTE" Type="varchar" MaxLength="20" />
+    <Property Name="STR_SITIO_WEB" Type="varchar" MaxLength="50" />
+    <Property Name="STR_DIRIGIDO" Type="varchar" MaxLength="200" />
+    <Property Name="INT_ESINGLES" Type="bit" Nullable="false" />
+    <Property Name="INT_CARTAS_SI" Type="bit" Nullable="false" />
+    <Property Name="INT_EMAIL_SI" Type="bit" Nullable="false" />
+    <Property Name="INT_FAX_SI" Type="bit" Nullable="false" />
+    <Property Name="INT_SIACTIVO" Type="int" Nullable="false" />
+    <Property Name="STR_IDPAIS" Type="char" MaxLength="2" />
+    <Property Name="INT_IDABOGADO" Type="int" />
+    <Property Name="INT_ES_AGENTE" Type="bit" Nullable="false" />
+    <Property Name="STR_CLIENTE_FAMILIA" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TB_PAIS">
+    <Key>
+      <PropertyRef Name="STR_IDPAIS" />
+    </Key>
+    <Property Name="STR_IDPAIS" Type="char" Nullable="false" MaxLength="2" />
+    <Property Name="STR_NOMBRE_PAIS" Type="varchar" Nullable="false" MaxLength="80" />
+    <Property Name="STR_NOMESPANOL" Type="varchar" MaxLength="80" />
+    <Property Name="STR_ISO3" Type="varchar" MaxLength="3" />
+    <Property Name="STR_CODIGO_ANTERIOR" Type="varchar" MaxLength="3" />
+    <Property Name="INT_NUMERICO_ISO" Type="int" />
+  </EntityType>
+  <Association Name="IDPAIS_1">
+    <End Role="TB_PAIS" Type="MarcasModel.Store.TB_PAIS" Multiplicity="0..1" />
+    <End Role="TB_CLIENTES" Type="MarcasModel.Store.TB_CLIENTES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_PAIS">
+        <PropertyRef Name="STR_IDPAIS" />
+      </Principal>
+      <Dependent Role="TB_CLIENTES">
+        <PropertyRef Name="STR_IDPAIS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+      warning 6013: The table/view 'HCPI_DESA.dbo.REL_ESTADO_SUBESTADO_CAT' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="REL_ESTADO_SUBESTADO_CAT">
+        <Property Name="STR_CODIGOESTADOADMIN" Type="char" MaxLength="1" />
+        <Property Name="ID_TIPO_SUBESTADO" Type="int" />
+        <Property Name="INT_ID_CATEGORIA" Type="int" />
+      </EntityType>-->
+</Schema>

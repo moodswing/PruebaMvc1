@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MarcasModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MarcasEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TB_CLIENTES" EntityType="MarcasModel.Cliente" />
+    <EntitySet Name="TB_PAIS" EntityType="MarcasModel.Pais" />
+    <AssociationSet Name="IDPAIS_1" Association="MarcasModel.IDPAIS_1">
+      <End Role="TB_PAIS" EntitySet="TB_PAIS" />
+      <End Role="TB_CLIENTES" EntitySet="TB_CLIENTES" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="Rut" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Tratamiento" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Direccion" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Comuna" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="CodigoPostal" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Telefono" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Fax" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="SitioWeb" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Dirigido" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="EsIngles" Type="Boolean" Nullable="false" />
+    <Property Name="EsCarta" Type="Boolean" Nullable="false" />
+    <Property Name="EsEmail" Type="Boolean" Nullable="false" />
+    <Property Name="EsFaxi" Type="Boolean" Nullable="false" />
+    <Property Name="Activo" Type="Int32" Nullable="false" />
+    <Property Name="IdPais" Type="String" MaxLength="2" Unicode="false" FixedLength="true" />
+    <Property Name="IdAbogado" Type="Int32" />
+    <Property Name="EsAgente" Type="Boolean" Nullable="false" />
+    <Property Name="ClienteFamilia" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="TB_PAIS" Relationship="MarcasModel.IDPAIS_1" FromRole="TB_CLIENTES" ToRole="TB_PAIS" />
+  </EntityType>
+  <EntityType Name="Pais">
+    <Key>
+      <PropertyRef Name="IdPais" />
+    </Key>
+    <Property Name="IdPais" Type="String" Nullable="false" MaxLength="2" Unicode="false" FixedLength="true" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
+    <Property Name="NombreEspañol" Type="String" MaxLength="80" Unicode="false" FixedLength="false" />
+    <Property Name="Iso3" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+    <Property Name="CodigoAnterior" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+    <Property Name="NumericoIso" Type="Int32" />
+    <NavigationProperty Name="TB_CLIENTES" Relationship="MarcasModel.IDPAIS_1" FromRole="TB_PAIS" ToRole="TB_CLIENTES" />
+  </EntityType>
+  <Association Name="IDPAIS_1">
+    <End Role="TB_PAIS" Type="MarcasModel.Pais" Multiplicity="0..1" />
+    <End Role="TB_CLIENTES" Type="MarcasModel.Cliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TB_PAIS">
+        <PropertyRef Name="IdPais" />
+      </Principal>
+      <Dependent Role="TB_CLIENTES">
+        <PropertyRef Name="IdPais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
